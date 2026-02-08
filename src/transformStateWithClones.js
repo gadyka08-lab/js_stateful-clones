@@ -22,7 +22,11 @@ function transformStateWithClones(state, actions) {
     switch (action.type) {
       case 'addProperties':
         // Додаємо властивості, тільки якщо extraData — це об'єкт
-        if (action.extraData && typeof action.extraData === 'object' && !Array.isArray(action.extraData)) {
+        if (
+          action.extraData &&
+          typeof action.extraData === 'object' &&
+          !Array.isArray(action.extraData)
+        ) {
           // Створюємо новий об'єкт
           currentState = { ...currentState, ...action.extraData };
         }
@@ -30,9 +34,13 @@ function transformStateWithClones(state, actions) {
 
       case 'removeProperties':
         // Видаляємо властивості
-        if (Array.isArray(action.keysToRemove) && action.keysToRemove.length > 0) {
+        if (
+          Array.isArray(action.keysToRemove) &&
+          action.keysToRemove.length > 0
+        ) {
           // Створюємо новий клон
           const nextState = { ...currentState };
+
           for (const key of action.keysToRemove) {
             delete nextState[key];
           }
@@ -53,3 +61,4 @@ function transformStateWithClones(state, actions) {
 
   return history;
 }
+module.exports = { transformStateWithClones };
